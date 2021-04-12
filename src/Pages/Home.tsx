@@ -1,153 +1,226 @@
 import { useState, useEffect } from "react";
-import styled from "styled-components"
-import {ITrip} from '../Interface/Interface'
+import styled from "styled-components";
+import { ITrip } from "../Interface/Interface";
 //Icons
-import PetrolIcon from '../Img/Petrol.png'
-import PizzaIcon from '../Img/Pizza.png'
-import SleepIcon from '../Img/Sleep.png'
-import ActivityIcon from '../Img/Activity.png'
-import OtherIcon from '../Img/Other.png'
-
+import PetrolIcon from "../Img/Petrol.png";
+import PizzaIcon from "../Img/Pizza.png";
+import SleepIcon from "../Img/Sleep.png";
+import ActivityIcon from "../Img/Activity.png";
+import OtherIcon from "../Img/Other.png";
+import RefreshIcon from "../Img/Refresh.png";
+import BagMoney from "../Img/Money.png";
+import RoadTripIcon from "../Img/Roadtrip.png";
+//Background
+import Clouds from "../Img/Clouds.png";
+import Overview from "../Components/Overview";
+import {
+  ExpensesContainer,
+  ExpenseIcon,
+  AlertContainer,
+  Message,
+  AlertYes,
+  AlertNo,
+} from "../Style/Style";
 
 function Home() {
   //LocalStorage Data
-  const LocalPetrol= +localStorage.getItem("Petrol")!;
+  const LocalBudget = +localStorage.getItem("Budget")!
+  const LocalPetrol = +localStorage.getItem("Petrol")!;
+  const LocalFood = +localStorage.getItem("Food")!;
+  const LocalSleep = +localStorage.getItem("Sleep")!;
+  const LocalActivity = +localStorage.getItem("Activity")!;
+  const LocalOther = +localStorage.getItem("Other")!;
   //Budget for the trip
-  const [total, setTotal] = useState<number>(0);
+  const [budget, setBudget] = useState<number>(0);
   //Insert expense
   const [category, setCategory] = useState<string>("Petrol");
   const [expense, setExpense] = useState<number>(0);
-  
-   let Trip ={
-     Petrol:LocalPetrol,
-     Food:0,
-     Sleep:0,
-     Activity:0,
-     Others:0,
 
-   }
-  
-  const [trip,setTrip]=useState<ITrip>(Trip)   
+  const [alert, setAlert] = useState<boolean>(false);
+
+  let Trip = {
+    Petrol: LocalPetrol,
+    Food: LocalFood,
+    Sleep: LocalSleep,
+    Activity: LocalActivity,
+    Other: LocalOther,
+  };
+
+  const [trip, setTrip] = useState<ITrip>(Trip);
   //Function add expense
-   const AddExpense= (expense:number , category: string) => {   
-    setTrip( {...trip, [`${category}`]: trip[`${category}`] + expense})
-    console.log(trip)
+  const AddExpense = (expense: number, category: string) => {
+    setTrip({ ...trip, [`${category}`]: trip[`${category}`] + expense });
+    console.log(trip);
   };
 
   //Reset Local Storage
   const ResetLocalStorage = () => {
     localStorage.clear();
   };
+  const Alert = () => {
+    setAlert(true);
+  };
   useEffect(() => {
+    localStorage.setItem("Budget", JSON.stringify(budget));
     localStorage.setItem("Petrol", JSON.stringify(trip.Petrol));
-  }, [trip]);
+    localStorage.setItem("Food", JSON.stringify(trip.Food));
+    localStorage.setItem("Activity", JSON.stringify(trip.Activity));
+    localStorage.setItem("Sleep", JSON.stringify(trip.Sleep));
+    localStorage.setItem("Other", JSON.stringify(trip.Other));
+  }, [trip,budget]);
 
   return (
     <Container>
-      {/* Clean and user */}
+      {alert && (
+        <AlertContainer>
+          <Message>
+            <p style={{ margin: "2rem" }}>Do you want to delete all the data of the trip?</p>
+            <div>
+              <AlertYes onClick={() => localStorage.clear()}>Yes!</AlertYes>
+              <AlertNo onClick={() => setAlert(false)}>No!</AlertNo>
+            </div>
+          </Message>
+        </AlertContainer>
+      )}
+
+      <Main style={{ backgroundImage: `url(${Clouds})` }}>
+        {/* Clean and user */}
+        <ButtonsContainer>
+          <ButtonClear onClick={() => Alert()}>
+            {" "}
+            <img style={{ width: "2rem" }} src={RefreshIcon} alt="" />{" "}
+          </ButtonClear>
+          <UserIcon>D</UserIcon>
+        </ButtonsContainer>
+
+        {/* TITLE */}
+        <div className="title">
+          <RoadTripTitle>
+            RoadTrip
+            <RoadTripIconTitle src={RoadTripIcon} alt="" />
+          </RoadTripTitle>
+        </div>
+      </Main>
+      <h2> Budget For The Trip </h2>
+      <BudgetContainer>
+        <ExpenseIcon src={BagMoney} alt="" />
+        <BudgetInput
+          type="number"
+          value={budget  }
+          onChange={(e) => setBudget(e.target.valueAsNumber)}
+        />
+        <p style={{ marginRight: "0.7rem", fontSize: "1.2rem" }}>$</p>
+      </BudgetContainer>
+
       <div>
-      <button onClick={() => localStorage.clear()}>Clean Storage</button>
-      <p></p>
-      </div>
-       <h1>RoadTrip</h1>
-
-      <h2>Budget For The Trip</h2>
-      <input type="number" value={total} onChange={(e) => setTotal(e.target.valueAsNumber)} />{" "}
-      {total}
-      <div >
         <AddExpenseContainer>
-
-        <select onChange={(e) => setCategory(e.target.value)}>
-          <option value="Petrol">‍⛽</option>
-          <option value="Food">🍕</option>
-          <option value="Sleep">⛺</option>
-          <option value="Other">🏄‍♂️</option>
-          <option value="Other">🤹‍♂️</option>
-        </select>
-
-        <input type="number" onChange={(e) => setExpense(e.target.valueAsNumber)} />$
-        <button onClick={() => AddExpense(expense,category)}>Add</button>
+          <SelectContainer onChange={(e) => setCategory(e.target.value)}>
+            <option value="Petrol">‍⛽</option>
+            <option value="Food">🍕</option>
+            <option value="Sleep">⛺</option>
+            <option value="Activity">🏄‍♂️</option>
+            <option value="Other">🤹‍♂️</option>
+          </SelectContainer>
+          <AddInput
+            type="number"
+            value={expense}
+            onChange={(e) => setExpense(e.target.valueAsNumber)}
+          />
+          <p style={{ fontSize: "1.2rem", marginLeft: ".8rem" }}>$</p>
+          <AddButton onClick={() => AddExpense(expense, category)}>Add</AddButton>
         </AddExpenseContainer>
       </div>
 
-      
-      <OverviewContainer >
-        <h1>Overview</h1>
-        {/* PETROL */}
-        <ExpensesContainer>
-          <ExpenseIcon src={PetrolIcon} alt=""/>
-          <p>Petrol {trip.Petrol}</p>
-          <p style={{marginRight:"0.7rem" , fontSize:"1.2rem"}}>$</p>
-        </ExpensesContainer>
-        {/* FOOD */}
-        <ExpensesContainer>
-          <ExpenseIcon src={PizzaIcon} alt=""/>
-          <p>Petrol {trip.Petrol}</p>
-          <p style={{marginRight:"0.7rem" , fontSize:"1.2rem"}}>$</p>
-        </ExpensesContainer>
-        {/* Sleep */}
-        <ExpensesContainer>
-          <ExpenseIcon src={SleepIcon} alt=""/>
-          <p>Petrol {trip.Petrol}</p>
-          <p style={{marginRight:"0.7rem" , fontSize:"1.2rem"}}>$</p>
-        </ExpensesContainer>
-        {/* Activity */}
-        <ExpensesContainer>
-          <ExpenseIcon src={ActivityIcon} alt=""/>
-          <p>Petrol {trip.Petrol}</p>
-          <p style={{marginRight:"0.7rem" , fontSize:"1.2rem"}}>$</p>
-        </ExpensesContainer>
-        {/* Other */}
-        <ExpensesContainer>
-          <ExpenseIcon src={OtherIcon} alt=""/>
-          <p>Petrol {trip.Petrol}</p>
-          <p style={{marginRight:"0.7rem" , fontSize:"1.2rem"}}>$</p>
-        </ExpensesContainer>
-       
-      </OverviewContainer>
+      <Overview trip={trip} budget={budget} LocalBudget={LocalBudget} />
     </Container>
   );
 }
 
 export default Home;
+
 const Container = styled.div`
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-`
-const ExpensesContainer =styled.div`
-width:15rem;
-display:flex;
-justify-content:space-between;
-align-items:center;
-background-color:white;
-border-radius:20px;
-border:2.5px solid #c4c4c4;
-padding:.2rem 0;
-margin:1rem 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  position: relative;
+`;
+const Main = styled.div`
+  width: 100%;
+  height: 17rem;
+  background-position: top;
+  background-size: cover;
+  margin-bottom: 2rem;
+`;
+const UserIcon = styled.div`
+  height: 3rem;
+  width: 3rem;
+  color:white;
+  background-color:#5caeff;
+  border:5px solid #2c93fa ;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+const ButtonClear = styled(UserIcon)`
+  cursor: pointer;
+`;
+const ButtonsContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin: 2rem;
+  
+`;
+const RoadTripIconTitle = styled.img`
+  width: 2rem;
+`;
+const RoadTripTitle = styled.h1`
+  font-size: 3rem;
+  text-align: center;
+`;
+//SELECT CONTAINER ADD
+const SelectContainer = styled.select`
+  border: 2.5px solid #f8ad18;
+  background-color: #f8ad18;
+  border-radius: 50%;
+  padding: 0.2rem;
+  transform: translateX(-2px);
+  font-size: 1.2rem;
+  cursor: pointer;
+`;
 
-
-`
-const ExpenseIcon = styled.img`
-width:1.4rem;
-margin-left:.7rem;
-
-`
-const OverviewContainer = styled.div`
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-`
-
-const SelectContainer =styled.select`
-width:10rem;
-border-radius:20px;
-border:2.5px solid #c4c4c4;
-padding:.2rem 0;
-margin:1rem 0;
-`
 const AddExpenseContainer = styled(ExpensesContainer)`
- border:2.5px solid #e7962c;
-`
+  border: 2.5px solid #f8ad18;
+  background-color: #ffc758;
+  height: 2.3rem;
+  color: white;
+`;
+const AddButton = styled.button`
+  border: 2.5px solid #f8ad18;
+  color: #f8ad18;
+  background-color: white;
+  cursor: pointer;
+  padding: 0.5rem 0.5rem 0.5rem 1.3rem;
+  border-radius: 0 20px 20px 0;
+  z-index: -1;
+  transform: translateX(-8px);
+`;
+const AddInput = styled.input`
+  border: none;
+  text-align: center;
+  font-family: "Roboto Mono", monospace;
+  background-color: #ffc758;
+  color: white;
+  z-index: 100;
+`;
+const BudgetContainer = styled(ExpensesContainer)`
+  border: 2.5px solid #2f6205;
+  background-color: green;
+  color: white;
+`;
+const BudgetInput = styled(AddInput)`
+  background-color: green;
+`;

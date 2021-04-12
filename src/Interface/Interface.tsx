@@ -3,6 +3,6 @@ export interface ITrip {
  Food:number,
   Sleep:number,
   Activity:number,
-  Others:number,
-
+  Other:number,
+  
 }
