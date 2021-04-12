@@ -1,6 +1,6 @@
 import Home from'./Home'
 import { ChangeEvent, useState } from "react";
-
+import Roadtrip from '../Img/Roadtrip.png'
 function Welcome() {
   const [toggle,setToggle]=useState<boolean>(false)
   const[ user,setUser] =useState<string>('')
@@ -17,16 +17,16 @@ function Welcome() {
 
   return (
     <div>
-      <h2>Welcome to</h2>
-      <h1>RoadTrip</h1>
+      {/* <h2>Welcome to</h2>
+      <h1>RoadTrip <img src={Roadtrip} alt=""/> </h1>
       <label >Insert Your Name</label>
       <input type="text" value={user} onChange={(e)=>UserName(e)}/>
       <h1>{user}</h1>
       <button onClick={hideWelcome}>👍</button>
-      {toggle && 
+      {toggle &&  */}
       
       <Home />
-      }
+      
     </div>
   )
 }
