@@ -9,18 +9,21 @@ export const Main = styled.div`
   margin-bottom: 2rem;
   h4{
     text-align:center;
-    margin:2.7rem;
+    padding-bottom:.3rem;
     font-family: "Roboto Mono", monospace;
     font-size:1.2rem;
   }
 `;
 
 export const RoadTripIconTitle = styled.img`
-  width: 2rem;
+  width: 3rem;
 `;
 export const RoadTripTitle = styled.h1`
   font-size: 3rem;
   text-align: center;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 `;
 
 //lITTLE EXPENSES 
@@ -58,7 +61,7 @@ justify-content:center;
 
 export const AlertContainer = styled.div`
   position: absolute;
-  height: 100vh;
+  height: 100%;
   width: 100%;
   background: rgba(46, 46, 46, 0.449);
   z-index: 200;
@@ -91,4 +94,18 @@ export const AlertYes = styled.button`
 export const AlertNo = styled(AlertYes)`
   background-color: #d55b22;
   border: 2px #e94b0d solid;
+`;
+
+export const UserIcon = styled.button`
+height: 3rem;
+width: 3rem;
+color:white;
+background-color:#5caeff;
+border:5px solid #2c93fa ;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+
+
 `;

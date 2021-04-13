@@ -5,11 +5,12 @@ import RoadTripIcon from "../Img/Roadtrip.png";
 import Clouds from "../Img/Clouds.png";
 
 //STYLE
-import { Main, RoadTripTitle, RoadTripIconTitle } from "../Style/Style";
+import { Main, RoadTripTitle, RoadTripIconTitle, UserIcon ,AlertContainer,Message, } from "../Style/Style";
 function Welcome() {
   const LocalUser = localStorage.getItem("User")! ? localStorage.getItem("User")! : "";
   const [toggle, setToggle] = useState<boolean>(LocalUser.length > 1 ? true : false);
   const [user, setUser] = useState<string>("");
+  const [info, setInfo] = useState<boolean>(false);
 
   const hideWelcome = () => {
     localStorage.setItem("User", JSON.stringify(user));
@@ -22,28 +23,43 @@ function Welcome() {
     setToggle(false);
   };
 
-
   return (
-    <div>
+    <div style={{position:"relative" , height:"100vh"}}>
+      {info && (
+        <AlertContainer>
+          <Message>
+            <p style={{ margin: "2rem" }}>
+              RoadTrip uses and saves your data on your browser (like your password etc.). <br/> If you clean up your data you will lose your trip.
+            </p>
+            <div>
+              <button onClick={()=>setInfo(false)}>All right!</button>
+            </div>
+          </Message>
+        </AlertContainer>
+      )}
       {LocalUser.length <= 0 && (
         <div>
-          <Main style={{ backgroundImage: `url(${Clouds})` }}>
+          <MainWelcome style={{ backgroundImage: `url(${Clouds})` }}>
+          <ButtonInfo onClick={()=>setInfo(true)}> i </ButtonInfo>
+
             <h4>Welcome to</h4>
             <RoadTripTitle>
               RoadTrip
               <RoadTripIconTitle src={RoadTripIcon} alt="" />
             </RoadTripTitle>
-          </Main>
+          </MainWelcome>
 
           <InsertNameContainer>
-            <label>Insert Your Name</label>
-            <input type="text" value={user} onChange={(e) => setUser(e.target.value)} />{" "}
-            <button onClick={hideWelcome}>👍</button>
+            <label>Insert Your Name/NickName</label>
+            <div className="Input-Name">
+              <input type="text" value={user} onChange={(e) => setUser(e.target.value)} />
+              <button onClick={hideWelcome}>👍</button>
+            </div>
           </InsertNameContainer>
         </div>
       )}
 
-      {LocalUser.length > 0 && <Home LocalUser={LocalUser.slice(1, 2).toUpperCase()} Hide={Hide} />}
+      {LocalUser.length > 0 &&  <Home LocalUser={LocalUser.slice(1, 2).toUpperCase()} Hide={Hide} />}
     </div>
   );
 }
@@ -71,3 +87,13 @@ const InsertNameContainer = styled.div`
     border-right: none;
   }
 `;
+const ButtonInfo = styled(UserIcon)`
+  
+  font-family: "Fredoka One", cursive;
+  cursor: pointer;
+  margin-left:2rem;
+`;
+const MainWelcome = styled(Main)`
+margin-bottom:0;
+padding: 2rem 0 0 0;
+`

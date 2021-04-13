@@ -14,6 +14,8 @@ import RoadTripIcon from "../Img/Roadtrip.png";
 import Clouds from "../Img/Clouds.png";
 import Overview from "../Components/Overview";
 import {
+  RoadTripIconTitle,
+  RoadTripTitle,
   ExpensesContainer,
   ExpenseIcon,
   AlertContainer,
@@ -143,7 +145,6 @@ const Home : React.FC<Props> = ({ LocalUser , Hide}) => {
 export default Home;
 
 const Container = styled.div`
-  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -160,7 +161,7 @@ const Main = styled.div`
   background-size: cover;
   margin-bottom: 2rem;
 `;
-const UserIcon = styled.div`
+const UserIcon = styled.button`
   height: 3rem;
   width: 3rem;
   color:white;
@@ -170,6 +171,8 @@ const UserIcon = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  font-family: "Fredoka One", cursive;
+
 `;
 const ButtonClear = styled(UserIcon)`
   cursor: pointer;
@@ -179,13 +182,6 @@ const ButtonsContainer = styled.div`
   justify-content: space-between;
   margin: 2rem;
   
-`;
-const RoadTripIconTitle = styled.img`
-  width: 2rem;
-`;
-const RoadTripTitle = styled.h1`
-  font-size: 3rem;
-  text-align: center;
 `;
 
 
@@ -216,6 +212,8 @@ const AddButton = styled.button`
   border-radius: 0 20px 20px 0;
   z-index: -1;
   transform: translateX(-8px);
+  font-weight:bold;
+
 `;
 const AddInput = styled.input`
   border: none;
