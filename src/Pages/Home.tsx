@@ -22,7 +22,11 @@ import {
   AlertNo,
 } from "../Style/Style";
 
-function Home() {
+interface Props {
+  LocalUser:string; 
+  Hide: () =>void; 
+}
+const Home : React.FC<Props> = ({ LocalUser , Hide}) => {
   //LocalStorage Data
   const LocalBudget = +localStorage.getItem("Budget")!
   const LocalPetrol = +localStorage.getItem("Petrol")!;
@@ -45,18 +49,12 @@ function Home() {
     Activity: LocalActivity,
     Other: LocalOther,
   };
-
   const [trip, setTrip] = useState<ITrip>(Trip);
   //Function add expense
   const AddExpense = (expense: number, category: string) => {
     setTrip({ ...trip, [`${category}`]: trip[`${category}`] + expense });
-    console.log(trip);
   };
-
-  //Reset Local Storage
-  const ResetLocalStorage = () => {
-    localStorage.clear();
-  };
+  
   const Alert = () => {
     setAlert(true);
   };
@@ -76,21 +74,21 @@ function Home() {
           <Message>
             <p style={{ margin: "2rem" }}>Do you want to delete all the data of the trip?</p>
             <div>
-              <AlertYes onClick={() => localStorage.clear()}>Yes!</AlertYes>
+              <AlertYes onClick={() => Hide()}>Yes!</AlertYes>
               <AlertNo onClick={() => setAlert(false)}>No!</AlertNo>
             </div>
           </Message>
         </AlertContainer>
       )}
 
-      <Main style={{ backgroundImage: `url(${Clouds})` }}>
+      <Main  style={{ backgroundImage: `url(${Clouds})` }}>
         {/* Clean and user */}
         <ButtonsContainer>
           <ButtonClear onClick={() => Alert()}>
             {" "}
             <img style={{ width: "2rem" }} src={RefreshIcon} alt="" />{" "}
           </ButtonClear>
-          <UserIcon>D</UserIcon>
+          <UserIcon>{LocalUser}</UserIcon>
         </ButtonsContainer>
 
         {/* TITLE */}
@@ -101,6 +99,8 @@ function Home() {
           </RoadTripTitle>
         </div>
       </Main>
+
+
       <h2> Budget For The Trip </h2>
       <BudgetContainer>
         <ExpenseIcon src={BagMoney} alt="" />
@@ -146,6 +146,8 @@ const Container = styled.div`
   justify-content: center;
   z-index: 1;
   position: relative;
+  background: linear-gradient(14deg, rgba(176,89,242,1) 1%, rgba(156,252,248,1) 100%);
+
 `;
 const Main = styled.div`
   width: 100%;
@@ -181,6 +183,9 @@ const RoadTripTitle = styled.h1`
   font-size: 3rem;
   text-align: center;
 `;
+
+
+
 //SELECT CONTAINER ADD
 const SelectContainer = styled.select`
   border: 2.5px solid #f8ad18;

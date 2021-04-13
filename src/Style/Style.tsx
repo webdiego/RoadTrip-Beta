@@ -1,5 +1,29 @@
 import styled from "styled-components"
 
+//MAIN TITLE CONTAINER
+export const Main = styled.div`
+  width: 100%;
+  height: 17rem;
+  background-position: top;
+  background-size: cover;
+  margin-bottom: 2rem;
+  h4{
+    text-align:center;
+    margin:2.7rem;
+    font-family: "Roboto Mono", monospace;
+    font-size:1.2rem;
+  }
+`;
+
+export const RoadTripIconTitle = styled.img`
+  width: 2rem;
+`;
+export const RoadTripTitle = styled.h1`
+  font-size: 3rem;
+  text-align: center;
+`;
+
+//lITTLE EXPENSES 
 export const ExpensesContainer =styled.div`
 width:15rem;
 display:flex;

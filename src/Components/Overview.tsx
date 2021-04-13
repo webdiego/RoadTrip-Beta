@@ -6,7 +6,6 @@ import PizzaIcon from '../Img/Pizza.png'
 import SleepIcon from '../Img/Sleep.png'
 import ActivityIcon from '../Img/Activity.png'
 import OtherIcon from '../Img/Other.png'
-import RefreshIcon from '../Img/Refresh.png'
 import BagMoney from "../Img/Money.png";
 
 interface Props {
@@ -15,8 +14,9 @@ interface Props {
   LocalBudget:number
    
 }
-const Overview: React.FC<Props> =({trip , budget, LocalBudget}) =>{
+const Overview: React.FC<Props> =({trip , budget, LocalBudget }) =>{
   let BudgetRemain = budget - trip.Petrol + trip.Food + trip.Activity + trip.Sleep + trip.Other
+  
   return (
     <div>
             <OverviewContainer  >
