@@ -7,7 +7,7 @@ import Clouds from "../Img/Clouds.png";
 //STYLE
 import { Main, RoadTripTitle, RoadTripIconTitle } from "../Style/Style";
 function Welcome() {
-  let LocalUser = localStorage.getItem("User")! ? localStorage.getItem("User")! : "";
+  const LocalUser = localStorage.getItem("User")! ? localStorage.getItem("User")! : "";
   const [toggle, setToggle] = useState<boolean>(LocalUser.length > 1 ? true : false);
   const [user, setUser] = useState<string>("");
 
@@ -22,7 +22,6 @@ function Welcome() {
     setToggle(false);
   };
 
-  console.log(`User:${user} LocalUser: ${LocalUser}`, toggle);
 
   return (
     <div>

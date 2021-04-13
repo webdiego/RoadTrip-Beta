@@ -28,14 +28,14 @@ interface Props {
 }
 const Home : React.FC<Props> = ({ LocalUser , Hide}) => {
   //LocalStorage Data
-  const LocalBudget = +localStorage.getItem("Budget")!
+  const LocalBudget = +localStorage.getItem("Budget")! ;
   const LocalPetrol = +localStorage.getItem("Petrol")!;
   const LocalFood = +localStorage.getItem("Food")!;
   const LocalSleep = +localStorage.getItem("Sleep")!;
   const LocalActivity = +localStorage.getItem("Activity")!;
   const LocalOther = +localStorage.getItem("Other")!;
   //Budget for the trip
-  const [budget, setBudget] = useState<number>(0);
+  const [budget, setBudget] = useState<number>( LocalBudget );
   //Insert expense
   const [category, setCategory] = useState<string>("Petrol");
   const [expense, setExpense] = useState<number>(0);
@@ -59,14 +59,17 @@ const Home : React.FC<Props> = ({ LocalUser , Hide}) => {
     setAlert(true);
   };
   useEffect(() => {
-    localStorage.setItem("Budget", JSON.stringify(budget));
     localStorage.setItem("Petrol", JSON.stringify(trip.Petrol));
     localStorage.setItem("Food", JSON.stringify(trip.Food));
     localStorage.setItem("Activity", JSON.stringify(trip.Activity));
     localStorage.setItem("Sleep", JSON.stringify(trip.Sleep));
     localStorage.setItem("Other", JSON.stringify(trip.Other));
-  }, [trip,budget]);
-
+  }, [trip]);
+  
+ const AddBudget = ()=>{
+  setBudget(budget + LocalBudget  )
+  localStorage.setItem("Budget", JSON.stringify(budget + LocalBudget ));
+ }
   return (
     <Container>
       {alert && (
@@ -106,10 +109,11 @@ const Home : React.FC<Props> = ({ LocalUser , Hide}) => {
         <ExpenseIcon src={BagMoney} alt="" />
         <BudgetInput
           type="number"
-          value={budget  }
+          value={ budget  }
           onChange={(e) => setBudget(e.target.valueAsNumber)}
         />
-        <p style={{ marginRight: "0.7rem", fontSize: "1.2rem" }}>$</p>
+          <p style={{ fontSize: "1.2rem", marginLeft: ".8rem" }}>$</p>
+        <AddButton onClick={()=>AddBudget()}>Add</AddButton>
       </BudgetContainer>
 
       <div>

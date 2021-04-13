@@ -12,6 +12,7 @@ body{
   font-family: 'Fredoka One', cursive;
   /* font-family: 'Roboto Mono', monospace; */
   background-repeat:no-repeat;
+  /* overflow-y: hidden; */
 }
 h2{
   color:white;
@@ -25,7 +26,11 @@ select,input{
   -webkit-appearance: none;
   
 }
-
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 input:focus, textarea:focus, select:focus{
         outline: none;
     }
