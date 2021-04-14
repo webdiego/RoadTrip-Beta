@@ -117,8 +117,9 @@ const Home : React.FC<Props> = ({ LocalUser , Hide}) => {
 
       
         <AddExpenseContainer>
-          <SelectContainer onChange={(e) => console.log(e)}>
+          <SelectContainer onChange={(e) =>setCategory(e.target.value)}>
             <label style={{ backgroundImage: `url(${ RoadTripIcon})` }}>‍</label>
+            <option value="Petrol">⛽</option>
             <option value="Food">🍕</option>
             <option value="Sleep">⛺</option>
             <option value="Activity">🏄‍♂️</option>
