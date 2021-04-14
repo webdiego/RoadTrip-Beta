@@ -10,13 +10,17 @@ import BagMoney from "../Img/Money.png";
 
 interface Props {
   trip:ITrip,
-  budget:number;
   LocalBudget:number
    
 }
-const Overview: React.FC<Props> =({trip , budget, LocalBudget }) =>{
-  let BudgetRemain = budget - trip.Petrol + trip.Food + trip.Activity + trip.Sleep + trip.Other
-  
+
+const Overview: React.FC<Props> =({trip , LocalBudget }) =>{
+  //Takes all the value in trip and insert in array
+  let Values = Object.values(trip)
+  const reducer = (acc:number ,current:number)=> acc + current
+  //Budget Remain
+  let BudgetRemain = LocalBudget - Values.reduce(reducer)
+
   return (
     <div>
             <OverviewContainer  >

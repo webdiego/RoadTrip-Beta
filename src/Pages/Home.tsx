@@ -2,11 +2,6 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { ITrip } from "../Interface/Interface";
 //Icons
-import PetrolIcon from "../Img/Petrol.png";
-import PizzaIcon from "../Img/Pizza.png";
-import SleepIcon from "../Img/Sleep.png";
-import ActivityIcon from "../Img/Activity.png";
-import OtherIcon from "../Img/Other.png";
 import RefreshIcon from "../Img/Refresh.png";
 import BagMoney from "../Img/Money.png";
 import RoadTripIcon from "../Img/Roadtrip.png";
@@ -22,6 +17,7 @@ import {
   Message,
   AlertYes,
   AlertNo,
+  UserIcon
 } from "../Style/Style";
 
 interface Props {
@@ -43,7 +39,7 @@ const Home : React.FC<Props> = ({ LocalUser , Hide}) => {
   const [expense, setExpense] = useState<number>(0);
 
   const [alert, setAlert] = useState<boolean>(false);
-
+  
   let Trip = {
     Petrol: LocalPetrol,
     Food: LocalFood,
@@ -67,7 +63,7 @@ const Home : React.FC<Props> = ({ LocalUser , Hide}) => {
     localStorage.setItem("Sleep", JSON.stringify(trip.Sleep));
     localStorage.setItem("Other", JSON.stringify(trip.Other));
   }, [trip]);
-  
+ 
  const AddBudget = ()=>{
   setBudget(budget + LocalBudget  )
   localStorage.setItem("Budget", JSON.stringify(budget + LocalBudget ));
@@ -106,7 +102,7 @@ const Home : React.FC<Props> = ({ LocalUser , Hide}) => {
       </Main>
 
 
-      <h2> Budget For The Trip </h2>
+      <h2> Budget For The Trip </h2> 
       <BudgetContainer>
         <ExpenseIcon src={BagMoney} alt="" />
         <BudgetInput
@@ -114,14 +110,14 @@ const Home : React.FC<Props> = ({ LocalUser , Hide}) => {
           value={ budget  }
           onChange={(e) => setBudget(e.target.valueAsNumber)}
         />
-          <p style={{ fontSize: "1.2rem", marginLeft: ".8rem" }}>$</p>
-        <AddButton onClick={()=>AddBudget()}>Add</AddButton>
+          <p style={{ fontSize: "1.2rem", marginRight: ".8rem" }}>$</p>
       </BudgetContainer>
+        <AddBudgetButton onClick={()=>AddBudget()}>Add</AddBudgetButton>
 
-      <div>
+      
         <AddExpenseContainer>
-          <SelectContainer onChange={(e) => setCategory(e.target.value)}>
-            <option value="Petrol">‍⛽</option>
+          <SelectContainer onChange={(e) => console.log(e)}>
+            <label style={{ backgroundImage: `url(${ RoadTripIcon})` }}>‍</label>
             <option value="Food">🍕</option>
             <option value="Sleep">⛺</option>
             <option value="Activity">🏄‍♂️</option>
@@ -132,12 +128,12 @@ const Home : React.FC<Props> = ({ LocalUser , Hide}) => {
             value={expense}
             onChange={(e) => setExpense(e.target.valueAsNumber)}
           />
-          <p style={{ fontSize: "1.2rem", marginLeft: ".8rem" }}>$</p>
-          <AddButton onClick={() => AddExpense(expense, category)}>Add</AddButton>
+          <p style={{ fontSize: "1.2rem", marginRight: ".8rem" }}>$</p>
         </AddExpenseContainer>
-      </div>
+        <AddExpenseButton onClick={() => AddExpense(expense, category)}>Add</AddExpenseButton>
+     
 
-      <Overview trip={trip} budget={budget} LocalBudget={LocalBudget} />
+      <Overview trip={trip}  LocalBudget={LocalBudget} />
     </Container>
   );
 }
@@ -158,23 +154,16 @@ const Main = styled.div`
   width: 100%;
   height: 17rem;
   background-position: top;
-  background-size: cover;
+  background-size: contain;
   margin-bottom: 2rem;
+  @media (max-width: 647px) {
+    background-size: cover;
+  }
 `;
-const UserIcon = styled.button`
-  height: 3rem;
-  width: 3rem;
-  color:white;
-  background-color:#5caeff;
-  border:5px solid #2c93fa ;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: "Fredoka One", cursive;
 
-`;
 const ButtonClear = styled(UserIcon)`
+background-color:#129d27;
+border:5px solid #36c110 ;
   cursor: pointer;
 `;
 const ButtonsContainer = styled.div`
@@ -183,7 +172,6 @@ const ButtonsContainer = styled.div`
   margin: 2rem;
   
 `;
-
 
 
 //SELECT CONTAINER ADD
@@ -202,18 +190,20 @@ const AddExpenseContainer = styled(ExpensesContainer)`
   background-color: #ffc758;
   height: 2.3rem;
   color: white;
+  margin-bottom:0;
 `;
-const AddButton = styled.button`
-  border: 2.5px solid #f8ad18;
-  color: #f8ad18;
-  background-color: white;
+const AddBudgetButton = styled.button`
+  border: 2.5px solid #25BA2A;
+  background-color:  #129d27;
   cursor: pointer;
-  padding: 0.5rem 0.5rem 0.5rem 1.3rem;
-  border-radius: 0 20px 20px 0;
+  padding: .2rem 1rem;
+  border-radius: 0 0 20px 20px ;
   z-index: -1;
-  transform: translateX(-8px);
-  font-weight:bold;
-
+  transform:translateY(-5px);
+  color:white;
+  font-size:1rem;
+  letter-spacing:.1rem;
+  font-weight:500;
 `;
 const AddInput = styled.input`
   border: none;
@@ -224,10 +214,16 @@ const AddInput = styled.input`
   z-index: 100;
 `;
 const BudgetContainer = styled(ExpensesContainer)`
-  border: 2.5px solid #2f6205;
-  background-color: green;
+  border: 2.5px solid #129d27;
+  background-color: #25BA2A;
   color: white;
+  margin-bottom:0;
 `;
 const BudgetInput = styled(AddInput)`
-  background-color: green;
+  background-color: #25BA2A;
 `;
+
+const AddExpenseButton = styled(AddBudgetButton)`
+border: 2.5px solid #ffc758;
+  background-color: #f8ad18;
+ `

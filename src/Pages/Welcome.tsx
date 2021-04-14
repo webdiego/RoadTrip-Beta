@@ -3,9 +3,10 @@ import Home from "./Home";
 import { useState } from "react";
 import RoadTripIcon from "../Img/Roadtrip.png";
 import Clouds from "../Img/Clouds.png";
+import OkIcon from "../Img/Ok.png";
 
 //STYLE
-import { Main, RoadTripTitle, RoadTripIconTitle, UserIcon ,AlertContainer,Message, } from "../Style/Style";
+import { Main, RoadTripTitle, RoadTripIconTitle, UserIcon ,AlertContainer,Message, AlertYes } from "../Style/Style";
 function Welcome() {
   const LocalUser = localStorage.getItem("User")! ? localStorage.getItem("User")! : "";
   const [toggle, setToggle] = useState<boolean>(LocalUser.length > 1 ? true : false);
@@ -22,7 +23,8 @@ function Welcome() {
 
     setToggle(false);
   };
-
+ console.log(LocalUser)
+ console.log(user)
   return (
     <div style={{position:"relative" , height:"100vh"}}>
       {info && (
@@ -32,7 +34,7 @@ function Welcome() {
               RoadTrip uses and saves your data on your browser (like your password etc.). <br/> If you clean up your data you will lose your trip.
             </p>
             <div>
-              <button onClick={()=>setInfo(false)}>All right!</button>
+              <ButtonAllRight onClick={()=>setInfo(false)}>All right!</ButtonAllRight>
             </div>
           </Message>
         </AlertContainer>
@@ -51,15 +53,18 @@ function Welcome() {
 
           <InsertNameContainer>
             <label>Insert Your Name/NickName</label>
-            <div className="Input-Name">
+            <div style={{display:"flex" }}>
               <input type="text" value={user} onChange={(e) => setUser(e.target.value)} />
-              <button onClick={hideWelcome}>👍</button>
+              <ButtonGo onClick={hideWelcome}> <img src={OkIcon} alt=""/> </ButtonGo>
             </div>
           </InsertNameContainer>
         </div>
       )}
 
-      {LocalUser.length > 0 &&  <Home LocalUser={LocalUser.slice(1, 2).toUpperCase()} Hide={Hide} />}
+      {LocalUser.length > 0 &&  
+      <Home 
+      LocalUser={LocalUser.replace(/['"]+/g, '').trimStart().slice(0,1).toUpperCase()}
+       Hide={Hide} />}
     </div>
   );
 }
@@ -96,4 +101,18 @@ const ButtonInfo = styled(UserIcon)`
 const MainWelcome = styled(Main)`
 margin-bottom:0;
 padding: 2rem 0 0 0;
+`
+const ButtonAllRight = styled(AlertYes)`
+
+`
+const ButtonGo = styled(UserIcon)`
+cursor:pointer;
+margin-left:1rem;
+background-color:#129d27;
+border:5px solid #36c110 ;
+
+img{
+  width:2rem;
+  transform:translateY(-2px)
+}
 `

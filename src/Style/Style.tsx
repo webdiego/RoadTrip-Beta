@@ -97,6 +97,7 @@ export const AlertNo = styled(AlertYes)`
 `;
 
 export const UserIcon = styled.button`
+font-family: 'Fredoka One', cursive;
 height: 3rem;
 width: 3rem;
 color:white;
