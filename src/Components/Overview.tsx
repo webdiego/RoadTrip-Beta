@@ -56,7 +56,7 @@ const Overview: React.FC<Props> =({trip , LocalBudget }) =>{
           <p style={{marginRight:"0.7rem" , fontSize:"1.2rem"}}>$</p>
         </ExpensesContainer>
         {/* TOTAL */}
-       <h2>Budget Remain</h2>
+       <h2 style={{marginTop:"2rem"}}>Budget Remain</h2>
         <BudgetRemainContainer>
           <ExpenseIcon src={BagMoney} alt=""/>
           <p> {BudgetRemain}  </p>
@@ -64,7 +64,7 @@ const Overview: React.FC<Props> =({trip , LocalBudget }) =>{
         </BudgetRemainContainer>
 
       </OverviewContainer>
-    </div>
+    </div> 
   )
 }
 
@@ -100,6 +100,7 @@ display:flex;
 flex-direction:column;
 align-items:center;
 justify-content:center;
+
  `
 
  const BudgetRemainContainer =styled(ExpensesContainer)`

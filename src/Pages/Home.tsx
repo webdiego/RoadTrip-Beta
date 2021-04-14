@@ -115,7 +115,7 @@ const Home : React.FC<Props> = ({ LocalUser , Hide}) => {
       </BudgetContainer>
         <AddBudgetButton onClick={()=>AddBudget()}>Add</AddBudgetButton>
 
-      
+        <h2> Insert your Expenses </h2>
         <AddExpenseContainer>
           <SelectContainer onChange={(e) =>setCategory(e.target.value)}>
             <label style={{ backgroundImage: `url(${ RoadTripIcon})` }}>‍</label>
@@ -207,6 +207,8 @@ const AddBudgetButton = styled.button`
   font-size:1rem;
   letter-spacing:.1rem;
   font-weight:500;
+  margin-bottom:2rem;
+
 `;
 const AddInput = styled.input`
   border: none;
@@ -215,6 +217,7 @@ const AddInput = styled.input`
   background-color: #ffc758;
   color: white;
   z-index: 100;
+  
 `;
 const BudgetContainer = styled(ExpensesContainer)`
   border: 2.5px solid #129d27;

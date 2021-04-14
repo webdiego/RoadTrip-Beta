@@ -43,5 +43,6 @@ border-radius:4px;
 padding:.4rem .6rem .2rem .6rem;
 justify-content:center;
 font-family: 'Fredoka One', cursive;
+cursor:pointer;
   }
 `
