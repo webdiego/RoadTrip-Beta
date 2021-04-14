@@ -11,7 +11,9 @@ Users should be able to:
 ### Screenshot
 
 ![Welcome Page](src/Img/Welcome.png)
+
 ![HomePage](src/Img/Home.png)
+
 ![Prototype](src/Img/Proto.png)
 
 
@@ -36,8 +38,8 @@ I'll update RoadTrip adding:
 
 - The possibility to insert city depart and city arrive, calculating the hypothetical distance. 
 - Use of a database and sign up  instead of using  local storage.
--Possibility to share your trip
--and more.
+- Possibility to share your trip.
+- and more.
 
 
 ## Author
