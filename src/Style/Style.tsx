@@ -66,7 +66,6 @@ export const AlertContainer = styled.div`
   background: rgba(46, 46, 46, 0.449);
   z-index: 200;
   display: flex;
-  align-items: center;
   justify-content: center;
   text-align: center;
 `;
@@ -79,6 +78,7 @@ export const Message = styled.div`
   align-items: center;
   justify-content: center;
   border-radius: 30px;
+  margin-top:10rem;
 `;
 
 export const AlertYes = styled.button`

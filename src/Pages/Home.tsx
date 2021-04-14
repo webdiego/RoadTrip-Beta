@@ -115,7 +115,7 @@ const Home : React.FC<Props> = ({ LocalUser , Hide}) => {
       </BudgetContainer>
         <AddBudgetButton onClick={()=>AddBudget()}>Add</AddBudgetButton>
 
-        <h2> Insert your Expenses </h2>
+        <h2>Select and add your Expenses </h2>
         <AddExpenseContainer>
           <SelectContainer onChange={(e) =>setCategory(e.target.value)}>
             <label style={{ backgroundImage: `url(${ RoadTripIcon})` }}>‍</label>

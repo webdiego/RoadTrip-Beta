@@ -18,6 +18,8 @@ h2{
   color:white;
   font-family: 'Roboto Mono', monospace;
   font-weight:300;
+  font-size: 1.1rem;
+
   }
 select,input{
   /* for Firefox */

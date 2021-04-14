@@ -7,7 +7,7 @@ function Footer() {
     <FooterContainer style={{ backgroundImage: `url(${SeaForest})` }}> 
       <p>Created by</p>
      <a href="https://diego-slicecode.dev/"><img src={SliceCode} alt=""/></a> 
-     <a href="https://www.buymeacoffee.com/webdiego"><button>  <img style={{width:".7rem"}} src="https://cdn.buymeacoffee.com/buttons/bmc-new-btn-logo.svg" alt=""/> Buy me a coffee</button></a>  
+     {/* <a href="https://www.buymeacoffee.com/webdiego"><button>  <img style={{width:".7rem"}} src="https://cdn.buymeacoffee.com/buttons/bmc-new-btn-logo.svg" alt=""/> Buy me a coffee</button></a>   */}
     </FooterContainer>
   )
 }
