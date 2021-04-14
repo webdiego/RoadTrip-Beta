@@ -19,8 +19,10 @@ h2{
   font-family: 'Roboto Mono', monospace;
   font-weight:300;
   font-size: 1.1rem;
+  font-weight:bolder;
 
   }
+ 
 select,input{
   /* for Firefox */
   -moz-appearance: none;
