@@ -8,6 +8,7 @@ import RoadTripIcon from "../Img/Roadtrip.png";
 //Background
 import Clouds from "../Img/Clouds.png";
 import Overview from "../Components/Overview";
+import Footer from '../Components/Footer'
 import {
   RoadTripIconTitle,
   RoadTripTitle,
@@ -134,6 +135,7 @@ const Home : React.FC<Props> = ({ LocalUser , Hide}) => {
      
 
       <Overview trip={trip}  LocalBudget={LocalBudget} />
+      <Footer/>
     </Container>
   );
 }

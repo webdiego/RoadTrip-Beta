@@ -38,6 +38,8 @@ input:focus, textarea:focus, select:focus{
 input[type=number] {
   -moz-appearance: textfield;
 }
-
+a{
+  text-decoration:none;
+}
 `;
 export default GlobalStyle;
