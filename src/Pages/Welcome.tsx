@@ -10,7 +10,7 @@ import RoadTripIcon from "../Img/Roadtrip.png";
 import Clouds from "../Img/Clouds.png";
 import OkIcon from "../Img/Ok.png";
 
-//STYLE
+//Style components from style.tsx
 import {
   Main,
   RoadTripTitle,
@@ -27,28 +27,30 @@ function Welcome() {
   const [user, setUser] = useState<string>("");
   const [info, setInfo] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState(false);
+  
+  
   const hideWelcome = () => {
     setIsOpen(true);
 
     setTimeout(() => {
       setIsOpen(false);
-    }, 1500);
+    }, 900);
     setTimeout(() => {
       localStorage.setItem("User", JSON.stringify(user));
       setToggle(true);
-    }, 1000);
+    },700);
   };
   const Hide = () => {
     setIsOpen(true);
     setTimeout(() => {
       setIsOpen(false);
-    }, 1500);
+    }, 900); 
 
     setTimeout(() => {
       
       localStorage.clear();
       setToggle(false);
-    }, 1000);
+    }, 700);
  
   };
 
