@@ -30,6 +30,12 @@ select,input{
   -webkit-appearance: none;
   
 }
+h4{
+    text-align:center;
+    padding-bottom:.3rem;
+    font-family: "Roboto Mono", monospace;
+    font-size:1.2rem;
+  }
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;

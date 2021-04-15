@@ -10,6 +10,7 @@ import Clouds from "../Img/Clouds.png";
 import Overview from "../Components/Overview";
 import Footer from '../Components/Footer'
 import {
+  Main,
   RoadTripIconTitle,
   RoadTripTitle,
   ExpensesContainer,
@@ -38,9 +39,9 @@ const Home : React.FC<Props> = ({ LocalUser , Hide}) => {
   //Insert expense
   const [category, setCategory] = useState<string>("Petrol");
   const [expense, setExpense] = useState<number>(0);
-
+  //Toggle Alert for clean the data in local storage
   const [alert, setAlert] = useState<boolean>(false);
-  
+  //Object for the trip
   let Trip = {
     Petrol: LocalPetrol,
     Food: LocalFood,
@@ -49,14 +50,20 @@ const Home : React.FC<Props> = ({ LocalUser , Hide}) => {
     Other: LocalOther,
   };
   const [trip, setTrip] = useState<ITrip>(Trip);
-  //Function add expense
+
+  //Function add expense and check if the value is empty(NaN)
   const AddExpense = (expense: number, category: string) => {
-    setTrip({ ...trip, [`${category}`]: trip[`${category}`] + expense });
-  };
+    if( !isNaN(expense)){
+      setTrip({ ...trip, [`${category}`]: trip[`${category}`] + expense  });
+    }else{
+      setTrip({ ...trip, [`${category}`]: trip[`${category}`] + 0  });
+    }
+  }; 
   
   const Alert = () => {
     setAlert(true);
   };
+  //Update the local storage  for every expense added
   useEffect(() => {
     localStorage.setItem("Petrol", JSON.stringify(trip.Petrol));
     localStorage.setItem("Food", JSON.stringify(trip.Food));
@@ -64,11 +71,13 @@ const Home : React.FC<Props> = ({ LocalUser , Hide}) => {
     localStorage.setItem("Sleep", JSON.stringify(trip.Sleep));
     localStorage.setItem("Other", JSON.stringify(trip.Other));
   }, [trip]);
+ //Set the Budget
  
- const AddBudget = ()=>{
-  setBudget(budget + LocalBudget  )
-  localStorage.setItem("Budget", JSON.stringify(budget + LocalBudget ));
+ const AddBudget = ()=>{ 
+  setBudget(budget   )
+  localStorage.setItem("Budget", JSON.stringify(budget  ));
  }
+ console.log(budget) 
   return (
     <Container>
       {alert && (
@@ -83,7 +92,7 @@ const Home : React.FC<Props> = ({ LocalUser , Hide}) => {
         </AlertContainer>
       )}
 
-      <Main  style={{ backgroundImage: `url(${Clouds})` }}>
+      <MainHome  style={{ backgroundImage: `url(${Clouds})` }}>
         {/* Clean and user */}
         <ButtonsContainer>
           <ButtonClear onClick={() => Alert()}>
@@ -100,10 +109,10 @@ const Home : React.FC<Props> = ({ LocalUser , Hide}) => {
             <RoadTripIconTitle src={RoadTripIcon} alt="" />
           </RoadTripTitle>
         </div>
-      </Main>
+      </MainHome>
 
 
-      <h2> Budget For The Trip </h2> 
+      <h2> Set Budget For The Trip </h2> 
       <BudgetContainer>
         <ExpenseIcon src={BagMoney} alt="" />
         <BudgetInput
@@ -113,9 +122,9 @@ const Home : React.FC<Props> = ({ LocalUser , Hide}) => {
         />
           <p style={{ fontSize: "1.2rem", marginRight: ".8rem" }}>$</p>
       </BudgetContainer>
-        <AddBudgetButton onClick={()=>AddBudget()}>Add</AddBudgetButton>
+        <AddBudgetButton onClick={()=>AddBudget()}>Set</AddBudgetButton>
 
-        <h2>Select and add your Expenses </h2>
+        <h2>Select and Add your Expenses </h2>
         <AddExpenseContainer>
           <SelectContainer onChange={(e) =>setCategory(e.target.value)}>
             <label style={{ backgroundImage: `url(${ RoadTripIcon})` }}>‍</label>
@@ -153,16 +162,14 @@ const Container = styled.div`
   background: linear-gradient(14deg, rgba(176,89,242,1) 1%, rgba(156,252,248,1) 100%);
 
 `;
-const Main = styled.div`
-  width: 100%;
-  height: 17rem;
-  background-position: top;
+
+const MainHome = styled(Main)`
   background-size: contain;
-  margin-bottom: 2rem;
   @media (max-width: 647px) {
     background-size: cover;
   }
-`;
+`
+
 
 const ButtonClear = styled(UserIcon)`
 background-color:#129d27;

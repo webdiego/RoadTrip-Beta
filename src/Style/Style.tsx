@@ -5,14 +5,9 @@ export const Main = styled.div`
   width: 100%;
   height: 17rem;
   background-position: top;
-  background-size: cover;
   margin-bottom: 2rem;
-  h4{
-    text-align:center;
-    padding-bottom:.3rem;
-    font-family: "Roboto Mono", monospace;
-    font-size:1.2rem;
-  }
+ 
+  background-size: cover;
 `;
 
 export const RoadTripIconTitle = styled.img`
