@@ -97,7 +97,7 @@ function Welcome() {
           <InsertNameContainer>
             <label>Insert Your Name/NickName</label>
             <div style={{ display: "flex" }}>
-              <input type="text" value={user} onChange={(e) => setUser(e.target.value)} />
+              <input onSubmit={hideWelcome} type="text" value={user} onChange={(e) => setUser(e.target.value)} />
               <ButtonGo onClick={hideWelcome}>
                 {" "}
                 <img src={OkIcon} alt="" />{" "}

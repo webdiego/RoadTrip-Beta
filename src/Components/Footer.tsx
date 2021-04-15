@@ -32,7 +32,7 @@ p{
 }
 img{
   width:8rem;
-  margin-bottom:.5rem;
+  margin:.5rem 0;
   }
   button{
     border:2px solid #FFE53F;

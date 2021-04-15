@@ -11,7 +11,7 @@ import BagMoney from "../Img/Money.png";
 import RoadTripIcon from "../Img/Roadtrip.png";
 //Background
 import Clouds from "../Img/Clouds.png";
-//Componentes
+//Components
 import Overview from "../Components/Overview";
 import Footer from "../Components/Footer";
 //Style components from style.tsx
@@ -129,7 +129,6 @@ const Home: React.FC<Props> = ({ LocalUser, Hide }) => {
         />
         <p style={{ fontSize: "1.2rem", marginRight: ".8rem" }}>$</p>
       </BudgetContainer>
-      {/* <AddBudgetButton onClick={()=>AddBudget()}>Set</AddBudgetButton> */}
 
       <h2>Select and Add your Expenses </h2>
       <AddExpenseContainer>
@@ -146,6 +145,7 @@ const Home: React.FC<Props> = ({ LocalUser, Hide }) => {
           value={expense}
           onChange={(e) => setExpense(e.target.valueAsNumber)}
           onFocus={(e) => (e.target.value = "")}
+          onSubmit={() => AddExpense(expense, category)}
         />
         <p style={{ fontSize: "1.2rem", marginRight: ".8rem" }}>$</p>
       </AddExpenseContainer>
@@ -241,5 +241,5 @@ const AddExpenseButton = styled(motion.button)`
  
   border: 3.5px solid #f8ad18;
   background-color: #f8ad18; 
-
+  outline:none;
 `;
