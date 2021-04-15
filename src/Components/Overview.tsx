@@ -20,7 +20,6 @@ const Overview: React.FC<Props> =({trip , budget, LocalBudget }) =>{
   const reducer = (acc:number ,current:number)=> acc + current
   //Calculate and store Budget Remain
   let BudgetRemain = LocalBudget !== budget ? budget : LocalBudget - Values.reduce(reducer)
-  console.log(budget, LocalBudget) 
   return (
     <div>
             <OverviewContainer  >

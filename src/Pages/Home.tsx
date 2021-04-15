@@ -83,7 +83,16 @@ const Home: React.FC<Props> = ({ LocalUser, Hide }) => {
     setBudget(budget);
     localStorage.setItem("Budget", JSON.stringify(budget));
   };
-  console.log(budget);
+  //Add budget and expense on "ENTER" //!NEED TO REWRITE THEM
+  const AddExpenseOnEnter = (e: React.KeyboardEvent<HTMLDivElement>)=>{
+   if(e.key === "Enter") AddExpense(expense, category)
+ }
+ const AddBudgetOnEnter = (e: React.KeyboardEvent<HTMLDivElement>)=>{
+  if(e.key === "Enter") {
+    setBudget(budget);
+    localStorage.setItem("Budget", JSON.stringify(budget))
+  }
+}
   return (
     <Container>
       {alert && (
@@ -124,8 +133,9 @@ const Home: React.FC<Props> = ({ LocalUser, Hide }) => {
           type="number"
           value={budget}
           onChange={(e) => setBudget(e.target.valueAsNumber)}
-          onBlur={() => AddBudget()}
+          onBlur={() => AddBudget()} 
           onFocus={(e) => (e.target.value = "")}
+          onKeyPress={(e)=>AddBudgetOnEnter(e)}
         />
         <p style={{ fontSize: "1.2rem", marginRight: ".8rem" }}>$</p>
       </BudgetContainer>
@@ -145,7 +155,7 @@ const Home: React.FC<Props> = ({ LocalUser, Hide }) => {
           value={expense}
           onChange={(e) => setExpense(e.target.valueAsNumber)}
           onFocus={(e) => (e.target.value = "")}
-          onSubmit={() => AddExpense(expense, category)}
+          onKeyPress={(e)=>AddExpenseOnEnter(e)}  
         />
         <p style={{ fontSize: "1.2rem", marginRight: ".8rem" }}>$</p>
       </AddExpenseContainer>
