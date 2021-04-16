@@ -90,7 +90,13 @@ const Home: React.FC<Props> = ({ LocalUser, Hide }) => {
       setTrip({ ...trip, [`${category}`]: trip[`${category}`] + 0 });
     }
   };
-
+  const RemoveExpense = (expense: number, category: string) => {
+    if (!isNaN(expense)) {
+      setTrip({ ...trip, [`${category}`]: trip[`${category}`] - expense });
+    } else {
+      setTrip({ ...trip, [`${category}`]: trip[`${category}`] + 0 });
+    }
+  };
   const Alert = () => {
     setAlert(true);
   };
@@ -171,7 +177,7 @@ const Home: React.FC<Props> = ({ LocalUser, Hide }) => {
         />
         <p style={{ fontSize: "1.2rem", marginRight: ".8rem" }}>$</p>
       </BudgetContainer>
-
+ 
       <h2>Select and Add your Expenses </h2>
       <AddExpenseContainer>
         <SelectContainer onChange={(e) => setCategory(e.target.value)}>
@@ -191,12 +197,21 @@ const Home: React.FC<Props> = ({ LocalUser, Hide }) => {
         /> 
         <p style={{ fontSize: "1.2rem", marginRight: ".8rem" }}>$</p>
       </AddExpenseContainer>
+      <AddRemoveContainer> 
       <AddExpenseButton
         whileTap={{ scale: 1.5, fontWeight: "bolder" }}
         onClick={() => {AddExpense(expense, category); SoundHandler("Coin2");}}
       >
-        Add
+        +
       </AddExpenseButton>
+
+      <RemoveExpenseButton
+        whileTap={{ scale: 1.5, fontWeight: "bolder" }}
+        onClick={() => {RemoveExpense(expense, category); SoundHandler("Coin2");}}
+      >
+        -
+      </RemoveExpenseButton>
+      </AddRemoveContainer> 
 
       <Overview trip={trip} budget={budget} LocalBudget={LocalBudget} />
       <Footer />
@@ -271,19 +286,29 @@ const BudgetInput = styled(AddInput)`
   background-color: #25ba2a;
 `;
 
+const AddRemoveContainer= styled.div`
+z-index:-2;
+display:flex;
+align-items:center;
+transform:translateY(-5px);
+`
 const AddExpenseButton = styled(motion.button)`
   cursor: pointer;
   padding: 0.2rem 1rem;
   border-radius: 0 0 20px 20px;
-  z-index: -1;
-  transform: translateY(-5px);
   color: white;
-  font-size: 1rem;
   letter-spacing: 0.1rem;
   font-weight: 500;
   margin-bottom: 2rem;
-
-  border: 3.5px solid #f8ad18;
+  margin-right:0.2rem;
+  border: 3.5px solid#ffc758;
   background-color: #f8ad18;
   outline: none;
+
 `;
+const RemoveExpenseButton = styled(AddExpenseButton)`
+  border: 3.5px solid #f87218;
+  background-color: #f88418;
+  font-size:.9rem;
+
+`
