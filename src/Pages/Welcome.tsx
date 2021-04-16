@@ -22,21 +22,22 @@ import {
 //USE-SOUND
 import useSound from "use-sound";
 import { IAudio } from "../Interface/Audio-Interface";
-import Click from "../Sound/click.wav";
-const CLICK: IAudio = { name: "Click", audioSrc: Click };
+import Ok from "../Sound/click.wav";
+import Icon from '../Sound/Icon.wav'
 
+const OK: IAudio = { name: "Ok", src: Ok };
+const ICON: IAudio = { name: "Icon", src: Icon };
 
 
 function Welcome() {
   //EXPERIMENT USE-SOUND
-  const [play, { stop, isPlaying }] = useSound(CLICK.audioSrc, { volume: 0.75, interrupt: true });
-  const clickHandler = (): void => {
-    if (isPlaying) {
-      stop();
-    } else {
-      play();
-    }
-  };
+  const [playOk, { stop, isPlaying }] = useSound(OK.src, { volume: 0.75, interrupt: true });
+  const [playIcon] = useSound(ICON.src, { volume: 0.35, interrupt: true });
+
+  const SoundHandler = (sound:string) => {
+    if(sound === "Ok") playOk()
+    if(sound === "Icon") playIcon()
+   };
   //USER LOCAL STORAGE
   const LocalUser = localStorage.getItem("User")! ? localStorage.getItem("User")! : "";
   const [toggle, setToggle] = useState<boolean>(LocalUser.length > 1 ? true : false);
@@ -101,7 +102,7 @@ function Welcome() {
       {LocalUser.length <= 0 && (
         <div>
           <MainWelcome style={{ backgroundImage: `url(${Clouds})` }}>
-            <ButtonInfo onClick={() => setInfo(true)}> i </ButtonInfo>
+            <ButtonInfo onClick={() =>{ setInfo(true);SoundHandler("Icon")}}> i </ButtonInfo>
 
             <h4>Welcome to</h4>
             <RoadTripTitle>
@@ -122,7 +123,7 @@ function Welcome() {
               <ButtonGo
                 onClick={() => {
                   hideWelcome();
-                  clickHandler();
+                  SoundHandler("Ok");
                 }}
               >
                 {" "}

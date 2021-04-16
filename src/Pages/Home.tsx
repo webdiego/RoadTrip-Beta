@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-//Styled Componentes
+//Styled Components
 import styled from "styled-components";
 //Framer Motion
 import { motion } from "framer-motion";
@@ -31,7 +31,14 @@ import {
 import useSound from "use-sound";
 import { IAudio } from "../Interface/Audio-Interface";
 import Coin from "../Sound/coin.wav";
-const COIN: IAudio = { name: "Coin", audioSrc: Coin };
+import Coin2 from "../Sound/Coin2.wav"
+import Power from "../Sound/PowerUp.wav"
+import Icon from '../Sound/Icon.wav'
+
+const COIN: IAudio = { name: "Coin", src: Coin };
+const COIN2: IAudio = { name: "Coin2", src: Coin2 };
+const POWER: IAudio = { name: "Power", src: Power }; 
+const ICON: IAudio = { name: "Icon", src: Icon };
 
 interface Props {
   LocalUser: string;
@@ -39,13 +46,17 @@ interface Props {
 }
 const Home: React.FC<Props> = ({ LocalUser, Hide }) => {
   //EXPERIMENT USE-SOUND
-  const [play, { stop, isPlaying }] = useSound(COIN.audioSrc, { volume: 0.75, interrupt: true });
-  const coinHandler = (): void => {
-    if (isPlaying) {
-      stop();
-    } else { 
-      play();
-    }
+  const [playCoin] = useSound(COIN.src, { volume: 0.35, interrupt: true });
+  const [playCoin2] = useSound(COIN2.src, { volume: 0.35, interrupt: true });
+  const [playPower] = useSound(POWER.src, { volume: 0.35, interrupt: true });
+  const [playIcon] = useSound(ICON.src, { volume: 0.35, interrupt: true });
+
+  const SoundHandler = (sound:string) => {
+   if(sound === "Coin") playCoin()
+   if(sound === "Coin2") playCoin2()
+   if(sound === "Power") playPower()
+   if(sound === "Icon") playIcon()
+
   };
   //LocalStorage Data
   const LocalBudget = +localStorage.getItem("Budget")!;
@@ -98,15 +109,22 @@ const Home: React.FC<Props> = ({ LocalUser, Hide }) => {
     localStorage.setItem("Budget", JSON.stringify(budget));
   };
   //Add budget and expense on "ENTER" //!NEED TO REWRITE THEM
-  const AddExpenseOnEnter = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (e.key === "Enter") AddExpense(expense, category);
-  };
   const AddBudgetOnEnter = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    
     if (e.key === "Enter") {
+      SoundHandler("Coin")
       setBudget(budget);
       localStorage.setItem("Budget", JSON.stringify(budget));
     }
   };
+  
+  const AddExpenseOnEnter = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === "Enter") {
+      SoundHandler("Coin2")
+      AddExpense(expense, category);
+  }
+  };
+  
   return (
     <Container>
       {alert && (
@@ -114,7 +132,7 @@ const Home: React.FC<Props> = ({ LocalUser, Hide }) => {
           <Message>
             <p style={{ margin: "2rem" }}>Do you want to delete all the data of the trip?</p>
             <div>
-              <AlertYes onClick={() => Hide()}>Yes!</AlertYes>
+              <AlertYes onClick={() =>{ Hide(); SoundHandler("Power")}}>Yes!</AlertYes>
               <AlertNo onClick={() => setAlert(false)}>No!</AlertNo>
             </div>
           </Message>
@@ -124,7 +142,7 @@ const Home: React.FC<Props> = ({ LocalUser, Hide }) => {
       <MainHome style={{ backgroundImage: `url(${Clouds})` }}>
         {/* Clean and user */}
         <ButtonsContainer>
-          <ButtonClear onClick={() => Alert()}>
+          <ButtonClear onClick={() => {Alert();SoundHandler("Icon")}}>
             {" "}
             <img style={{ width: "2rem" }} src={RefreshIcon} alt="" />{" "}
           </ButtonClear>
@@ -147,9 +165,9 @@ const Home: React.FC<Props> = ({ LocalUser, Hide }) => {
           type="number"
           value={budget}
           onChange={(e) => setBudget(e.target.valueAsNumber)}
-          onBlur={() => AddBudget()}
+          onBlur={() => AddBudget()}  
           onFocus={(e) => (e.target.value = "")}
-          onKeyPress={(e) => AddBudgetOnEnter(e)}
+          onKeyPress={(e) =>AddBudgetOnEnter(e)}
         />
         <p style={{ fontSize: "1.2rem", marginRight: ".8rem" }}>$</p>
       </BudgetContainer>
@@ -161,7 +179,7 @@ const Home: React.FC<Props> = ({ LocalUser, Hide }) => {
           <option value="Petrol">⛽</option>
           <option value="Food">🍕</option>
           <option value="Sleep">⛺</option>
-          <option value="Activity">🏄‍♂️</option>
+          <option value="Activity">🏄‍♂️</option> 
           <option value="Other">🤹‍♂️</option>
         </SelectContainer>
         <AddInput
@@ -170,12 +188,12 @@ const Home: React.FC<Props> = ({ LocalUser, Hide }) => {
           onChange={(e) => setExpense(e.target.valueAsNumber)}
           onFocus={(e) => (e.target.value = "")}
           onKeyPress={(e) => AddExpenseOnEnter(e)}
-        />
+        /> 
         <p style={{ fontSize: "1.2rem", marginRight: ".8rem" }}>$</p>
       </AddExpenseContainer>
       <AddExpenseButton
         whileTap={{ scale: 1.5, fontWeight: "bolder" }}
-        onClick={() => {AddExpense(expense, category); coinHandler();}}
+        onClick={() => {AddExpense(expense, category); SoundHandler("Coin2");}}
       >
         Add
       </AddExpenseButton>

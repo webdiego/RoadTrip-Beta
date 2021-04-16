@@ -1,5 +1,5 @@
 export interface IAudio {
   name: string,
-  audioSrc: any,
+  src: string ,
   
 }

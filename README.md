@@ -1,5 +1,5 @@
 # RoadTrip (Beta)
-
+![Welcome Page](src/Img/RoadTrip-Logo.png)
 Track your expenses during a trip
 
 ### The challenge
