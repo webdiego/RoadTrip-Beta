@@ -1,5 +1,6 @@
 # RoadTrip (Beta)
 ![Welcome Page](src/Img/RoadTrip-Logo.png)
+
 Track your expenses during a trip
 
 ### The challenge
@@ -12,8 +13,8 @@ Users should be able to:
 
 ### Screenshot
 
-![Welcome Page](src/Img/Welcome.png)
-![HomePage](src/Img/Home.png)
+### Prototype
+
 ![Prototype](src/Img/Proto.png)
 
 
