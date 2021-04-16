@@ -92,7 +92,7 @@ const Home: React.FC<Props> = ({ LocalUser, Hide }) => {
   };
   const RemoveExpense = (expense: number, category: string) => {
     if (!isNaN(expense)) {
-      setTrip({ ...trip, [`${category}`]: trip[`${category}`] - expense });
+      setTrip({ ...trip, [`${category}`]: (trip[`${category}`] - expense) < 0 ? 0 : trip[`${category}`] - expense }); 
     } else {
       setTrip({ ...trip, [`${category}`]: trip[`${category}`] + 0 });
     }
@@ -100,6 +100,7 @@ const Home: React.FC<Props> = ({ LocalUser, Hide }) => {
   const Alert = () => {
     setAlert(true);
   };
+  console.log(trip, expense)
   //Update the local storage  for every expense added
   useEffect(() => {
     localStorage.setItem("Petrol", JSON.stringify(trip.Petrol));
