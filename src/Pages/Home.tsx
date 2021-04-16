@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 //Styled Componentes
 import styled from "styled-components";
 //Framer Motion
-import {motion} from 'framer-motion'
+import { motion } from "framer-motion";
 //Interfaces
 import { ITrip } from "../Interface/Interface";
 //Icons
@@ -27,12 +27,26 @@ import {
   AlertNo,
   UserIcon,
 } from "../Style/Style";
+//USE-SOUND
+import useSound from "use-sound";
+import { IAudio } from "../Interface/Audio-Interface";
+import Coin from "../Sound/coin.wav";
+const COIN: IAudio = { name: "Coin", audioSrc: Coin };
 
 interface Props {
   LocalUser: string;
   Hide: () => void;
 }
 const Home: React.FC<Props> = ({ LocalUser, Hide }) => {
+  //EXPERIMENT USE-SOUND
+  const [play, { stop, isPlaying }] = useSound(COIN.audioSrc, { volume: 0.95, interrupt: true });
+  const coinHandler = (): void => {
+    if (isPlaying) {
+      stop();
+    } else { 
+      play();
+    }
+  };
   //LocalStorage Data
   const LocalBudget = +localStorage.getItem("Budget")!;
   const LocalPetrol = +localStorage.getItem("Petrol")!;
@@ -84,15 +98,15 @@ const Home: React.FC<Props> = ({ LocalUser, Hide }) => {
     localStorage.setItem("Budget", JSON.stringify(budget));
   };
   //Add budget and expense on "ENTER" //!NEED TO REWRITE THEM
-  const AddExpenseOnEnter = (e: React.KeyboardEvent<HTMLDivElement>)=>{
-   if(e.key === "Enter") AddExpense(expense, category)
- }
- const AddBudgetOnEnter = (e: React.KeyboardEvent<HTMLDivElement>)=>{
-  if(e.key === "Enter") {
-    setBudget(budget);
-    localStorage.setItem("Budget", JSON.stringify(budget))
-  }
-}
+  const AddExpenseOnEnter = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === "Enter") AddExpense(expense, category);
+  };
+  const AddBudgetOnEnter = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === "Enter") {
+      setBudget(budget);
+      localStorage.setItem("Budget", JSON.stringify(budget));
+    }
+  };
   return (
     <Container>
       {alert && (
@@ -133,9 +147,9 @@ const Home: React.FC<Props> = ({ LocalUser, Hide }) => {
           type="number"
           value={budget}
           onChange={(e) => setBudget(e.target.valueAsNumber)}
-          onBlur={() => AddBudget()} 
+          onBlur={() => AddBudget()}
           onFocus={(e) => (e.target.value = "")}
-          onKeyPress={(e)=>AddBudgetOnEnter(e)}
+          onKeyPress={(e) => AddBudgetOnEnter(e)}
         />
         <p style={{ fontSize: "1.2rem", marginRight: ".8rem" }}>$</p>
       </BudgetContainer>
@@ -155,14 +169,16 @@ const Home: React.FC<Props> = ({ LocalUser, Hide }) => {
           value={expense}
           onChange={(e) => setExpense(e.target.valueAsNumber)}
           onFocus={(e) => (e.target.value = "")}
-          onKeyPress={(e)=>AddExpenseOnEnter(e)}  
+          onKeyPress={(e) => AddExpenseOnEnter(e)}
         />
         <p style={{ fontSize: "1.2rem", marginRight: ".8rem" }}>$</p>
       </AddExpenseContainer>
       <AddExpenseButton
-      whileTap={{scale:1.5 , fontWeight:"bolder"   }}  
-
-       onClick={() => AddExpense(expense, category)}>Add</AddExpenseButton>
+        whileTap={{ scale: 1.5, fontWeight: "bolder" }}
+        onClick={() => {AddExpense(expense, category); coinHandler();}}
+      >
+        Add
+      </AddExpenseButton>
 
       <Overview trip={trip} budget={budget} LocalBudget={LocalBudget} />
       <Footer />
@@ -237,7 +253,7 @@ const BudgetInput = styled(AddInput)`
   background-color: #25ba2a;
 `;
 
-const AddExpenseButton = styled(motion.button)` 
+const AddExpenseButton = styled(motion.button)`
   cursor: pointer;
   padding: 0.2rem 1rem;
   border-radius: 0 0 20px 20px;
@@ -248,8 +264,8 @@ const AddExpenseButton = styled(motion.button)`
   letter-spacing: 0.1rem;
   font-weight: 500;
   margin-bottom: 2rem;
- 
+
   border: 3.5px solid #f8ad18;
-  background-color: #f8ad18; 
-  outline:none;
+  background-color: #f8ad18;
+  outline: none;
 `;

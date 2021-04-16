@@ -1,5 +1,7 @@
 # RoadTrip (Beta)
 
+Track your expenses during a trip
+
 ### The challenge
 
 Users should be able to:
@@ -11,11 +13,8 @@ Users should be able to:
 ### Screenshot
 
 ![Welcome Page](src/Img/Welcome.png)
-
 ![HomePage](src/Img/Home.png)
-
 ![Prototype](src/Img/Proto.png)
-
 
 
 ### Links
@@ -29,6 +28,8 @@ Users should be able to:
 - [React](https://reactjs.org/) - JS library
 - [Typescript](https://www.typescriptlang.org/) 
 - [Styled Components](https://styled-components.com/) - For styles
+- [Framer-Motion](https://www.framer.com/motion/) - Animation
+- [Use-Sound](https://github.com/joshwcomeau/use-sound#sprites) -Sound
 
 
 
@@ -45,5 +46,5 @@ I'll update RoadTrip adding:
 ## Author
 
 - Website - [Diego Massarini](https://diego-slicecode.dev/)
-- Twitter - [@slicecodediego](https://twitter.com/slicecodediego)
+- Twitter - [slicecodediego](https://twitter.com/slicecodediego)
 

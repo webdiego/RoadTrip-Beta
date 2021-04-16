@@ -9,7 +9,6 @@ import Home from "./Home";
 import RoadTripIcon from "../Img/Roadtrip.png";
 import Clouds from "../Img/Clouds.png";
 import OkIcon from "../Img/Ok.png";
-
 //Style components from style.tsx
 import {
   Main,
@@ -20,15 +19,32 @@ import {
   Message,
   AlertYes,
 } from "../Style/Style";
+//USE-SOUND
+import useSound from "use-sound";
+import { IAudio } from "../Interface/Audio-Interface";
+import Click from "../Sound/click.wav";
+const CLICK: IAudio = { name: "Click", audioSrc: Click };
+
+
 
 function Welcome() {
+  //EXPERIMENT USE-SOUND
+  const [play, { stop, isPlaying }] = useSound(CLICK.audioSrc, { volume: 0.95, interrupt: true });
+  const clickHandler = (): void => {
+    if (isPlaying) {
+      stop();
+    } else {
+      play();
+    }
+  };
+  //USER LOCAL STORAGE
   const LocalUser = localStorage.getItem("User")! ? localStorage.getItem("User")! : "";
   const [toggle, setToggle] = useState<boolean>(LocalUser.length > 1 ? true : false);
   const [user, setUser] = useState<string>("");
   const [info, setInfo] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState(false);
-  
-  
+ 
+  //FUNCTION FOR HIDE AND SHOW PAGES
   const hideWelcome = () => {
     setIsOpen(true);
 
@@ -38,22 +54,20 @@ function Welcome() {
     setTimeout(() => {
       localStorage.setItem("User", JSON.stringify(user));
       setToggle(true);
-    },700);
+    }, 700);
   };
   const Hide = () => {
     setIsOpen(true);
     setTimeout(() => {
       setIsOpen(false);
-    }, 900); 
+    }, 900);
 
     setTimeout(() => {
-      
       localStorage.clear();
       setToggle(false);
     }, 700);
- 
   };
-
+  //ANIMATION VARIANTS FRAMER-MOTION
   const variants = {
     open: {
       opacity: 0,
@@ -63,6 +77,8 @@ function Welcome() {
       transition: { duration: 0.3 },
     },
   };
+
+ 
   return (
     <motion.div
       animate={isOpen ? "open" : "closed"}
@@ -97,8 +113,18 @@ function Welcome() {
           <InsertNameContainer>
             <label>Insert Your Name/NickName</label>
             <div style={{ display: "flex" }}>
-              <input onSubmit={hideWelcome} type="text" value={user} onChange={(e) => setUser(e.target.value)} />
-              <ButtonGo onClick={hideWelcome}>
+              <input
+                onSubmit={hideWelcome}
+                type="text"
+                value={user}
+                onChange={(e) => setUser(e.target.value)}
+              />
+              <ButtonGo
+                onClick={() => {
+                  hideWelcome();
+                  clickHandler();
+                }}
+              >
                 {" "}
                 <img src={OkIcon} alt="" />{" "}
               </ButtonGo>
