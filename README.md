@@ -13,8 +13,8 @@ Users should be able to:
 
 ### Screenshot
 
-![Welcome Page](src/Img/Welcome.png)
-![HomePage](src/Img/Home.png)
+### Prototype
+
 ![Prototype](src/Img/Proto.png)
 
 
