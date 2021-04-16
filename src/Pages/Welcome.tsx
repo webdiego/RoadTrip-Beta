@@ -29,7 +29,7 @@ const CLICK: IAudio = { name: "Click", audioSrc: Click };
 
 function Welcome() {
   //EXPERIMENT USE-SOUND
-  const [play, { stop, isPlaying }] = useSound(CLICK.audioSrc, { volume: 0.95, interrupt: true });
+  const [play, { stop, isPlaying }] = useSound(CLICK.audioSrc, { volume: 0.75, interrupt: true });
   const clickHandler = (): void => {
     if (isPlaying) {
       stop();

@@ -39,7 +39,7 @@ interface Props {
 }
 const Home: React.FC<Props> = ({ LocalUser, Hide }) => {
   //EXPERIMENT USE-SOUND
-  const [play, { stop, isPlaying }] = useSound(COIN.audioSrc, { volume: 0.95, interrupt: true });
+  const [play, { stop, isPlaying }] = useSound(COIN.audioSrc, { volume: 0.75, interrupt: true });
   const coinHandler = (): void => {
     if (isPlaying) {
       stop();
