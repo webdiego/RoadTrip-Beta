@@ -276,6 +276,7 @@ const AddInput = styled.input`
   background-color: #ffc758;
   color: white;
   z-index: 100;
+  
 `;
 const BudgetContainer = styled(ExpensesContainer)`
   border: 2.5px solid #129d27;
@@ -291,25 +292,25 @@ const AddRemoveContainer= styled.div`
 z-index:-2;
 display:flex;
 align-items:center;
-transform:translateY(-5px);
+transform:translateY(-10px);
 `
 const AddExpenseButton = styled(motion.button)`
   cursor: pointer;
   padding: 0.2rem 1rem;
   border-radius: 0 0 20px 20px;
   color: white;
-  letter-spacing: 0.1rem;
-  font-weight: 500;
   margin-bottom: 2rem;
   margin-right:0.2rem;
   border: 3.5px solid#ffc758;
   background-color: #f8ad18;
   outline: none;
+  font-family: 'Fredoka One', cursive;
+  font-size:1.5rem;
+
 
 `;
 const RemoveExpenseButton = styled(AddExpenseButton)`
   border: 3.5px solid #f87218;
   background-color: #f88418;
-  font-size:.9rem;
 
 `

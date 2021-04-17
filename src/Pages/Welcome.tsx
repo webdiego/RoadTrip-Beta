@@ -23,28 +23,27 @@ import {
 import useSound from "use-sound";
 import { IAudio } from "../Interface/Audio-Interface";
 import Ok from "../Sound/click.wav";
-import Icon from '../Sound/Icon.wav'
+import Icon from "../Sound/Icon.wav";
 
 const OK: IAudio = { name: "Ok", src: Ok };
 const ICON: IAudio = { name: "Icon", src: Icon };
-
 
 function Welcome() {
   //EXPERIMENT USE-SOUND
   const [playOk, { stop, isPlaying }] = useSound(OK.src, { volume: 0.75, interrupt: true });
   const [playIcon] = useSound(ICON.src, { volume: 0.35, interrupt: true });
 
-  const SoundHandler = (sound:string) => {
-    if(sound === "Ok") playOk()
-    if(sound === "Icon") playIcon()
-   };
+  const SoundHandler = (sound: string) => {
+    if (sound === "Ok") playOk();
+    if (sound === "Icon") playIcon();
+  };
   //USER LOCAL STORAGE
   const LocalUser = localStorage.getItem("User")! ? localStorage.getItem("User")! : "";
   const [toggle, setToggle] = useState<boolean>(LocalUser.length > 1 ? true : false);
   const [user, setUser] = useState<string>("");
   const [info, setInfo] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState(false);
- 
+
   //FUNCTION FOR HIDE AND SHOW PAGES
   const hideWelcome = () => {
     setIsOpen(true);
@@ -68,6 +67,13 @@ function Welcome() {
       setToggle(false);
     }, 700);
   };
+  const AddNameOnEnter = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === "Enter") {
+      SoundHandler("Ok")  
+      setUser(user)
+      hideWelcome()
+    }
+  };
   //ANIMATION VARIANTS FRAMER-MOTION
   const variants = {
     open: {
@@ -79,7 +85,6 @@ function Welcome() {
     },
   };
 
- 
   return (
     <motion.div
       animate={isOpen ? "open" : "closed"}
@@ -102,7 +107,15 @@ function Welcome() {
       {LocalUser.length <= 0 && (
         <div>
           <MainWelcome style={{ backgroundImage: `url(${Clouds})` }}>
-            <ButtonInfo onClick={() =>{ setInfo(true);SoundHandler("Icon")}}> i </ButtonInfo>
+            <ButtonInfo
+              onClick={() => {
+                setInfo(true);
+                SoundHandler("Icon");
+              }}
+            >
+              {" "}
+              i{" "}
+            </ButtonInfo>
 
             <h4>Welcome to</h4>
             <RoadTripTitle>
@@ -118,7 +131,9 @@ function Welcome() {
                 onSubmit={hideWelcome}
                 type="text"
                 value={user}
-                onChange={(e) => setUser(e.target.value)}
+                onChange={(e) => {setUser(e.target.value); console.log(e)}}
+                onFocus={(e) => (e.target.value = "")}
+                onKeyPress={(e) => AddNameOnEnter(e)}
               />
               <ButtonGo
                 onClick={() => {
@@ -165,6 +180,9 @@ const InsertNameContainer = styled.div`
     border-top: none;
     border-left: none;
     border-right: none;
+    @media (max-width: 368px) {
+    width:10rem;
+  }
   }
 `;
 const ButtonInfo = styled(UserIcon)`
