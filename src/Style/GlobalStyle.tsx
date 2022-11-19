@@ -1,7 +1,7 @@
-import "styled-components";
-import { createGlobalStyle } from "styled-components";
+import 'styled-components';
+import { createGlobalStyle } from 'styled-components';
 
-const GlobalStyle = createGlobalStyle`
+const GlobalStyle: any = createGlobalStyle`
 *{
   margin:0;
   padding:0;

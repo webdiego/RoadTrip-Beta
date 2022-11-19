@@ -30,7 +30,7 @@ const ICON: IAudio = { name: "Icon", src: Icon };
 
 function Welcome() {
   //EXPERIMENT USE-SOUND
-  const [playOk, { stop, isPlaying }] = useSound(OK.src, { volume: 0.75, interrupt: true });
+  const [playOk] = useSound(OK.src, { volume: 0.75, interrupt: true });
   const [playIcon] = useSound(ICON.src, { volume: 0.35, interrupt: true });
 
   const SoundHandler = (sound: string) => {
